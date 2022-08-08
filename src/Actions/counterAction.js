@@ -1,6 +1,8 @@
-export const increament = () => {
+export const increament = (id) => {
     return {
         type: 'INCREAMENT',
+        payload: id
+
     }
 }
 

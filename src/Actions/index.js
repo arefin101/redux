@@ -1,2 +1,2 @@
-export * from './countersAction';
-export * from './isLoggedActions';
+export * from './counterAction';
+export * from './isLoggedAction';

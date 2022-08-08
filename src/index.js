@@ -3,57 +3,36 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {createStore} from 'redux';
+//REDUX
+import {createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import allReducers from './Reducers';
+//SAGA
+import createSagaMiddleware from 'redux-saga';
+import allSaga from "./sagas";
 
 
-const state = createStore(
-    allReducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  );
+
+
+
+const sagaMiddleware = createSagaMiddleware();
+
+const state = createStore( allReducers, applyMiddleware(sagaMiddleware) );
+
+sagaMiddleware.run(allSaga);
+
+
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <Provider store={state}>
-      <App />
+        <App />
     </Provider>
   </React.StrictMode>
 );
 
 reportWebVitals();
-
-
-
-
-
-
-// const increament = () => {
-//   return {
-//     type: 'INCREAMENT'
-//   }
-// }
-
-// const decrement = () => {
-//   return {
-//     type: 'DECREAMENT'
-//   }
-// }
-
-// const counter = (state = 0, action) => {
-//   switch(action.type){
-//     case 'INCREAMENT':
-//       return state+1;
-//     case 'DECREAMENT':
-//       return state-1;
-//     default:
-//       return state;
-//   }
-// }
-
-// const store = createStore(counter);
-
-// store.subscribe(()=>console.log(store.getState()));
-
-// store.dispatch(increament());
